@@ -15,3 +15,5 @@
 
 body .container{width:min(1180px,calc(100% - 80px));margin-inline:auto}@media(max-width:640px){body .container{width:calc(100% - 40px)}.hero-brand-title .wordmark{--logo-size:92px}}
 
+
+body .brand-wordmark{display:block;flex:0 0 155px;line-height:1}body h1.hero-brand-title{font-size:0;line-height:1;width:min(480px,100%);margin:24px 0}body .hero-brand-title .brand-location{font-size:11px;line-height:1.4;margin-top:18px;letter-spacing:5px}body .contact-brand{font-size:0;line-height:1}body .footer-wordmark{display:block;line-height:1}body .ultra-logo{display:block;max-width:100%;height:auto}body .hero-brand-title .ultra-logo{width:100%}@media(max-width:640px){body .brand-wordmark{flex-basis:125px;width:125px}body h1.hero-brand-title{width:min(330px,100%);margin:26px 0 20px}body .hero-brand-title .brand-location{font-size:9px;margin-top:15px}}
