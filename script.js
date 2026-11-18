@@ -66,3 +66,31 @@ whatsappModal.querySelectorAll('.whatsapp-option').forEach(link => link.addEvent
   whatsappModal.close();
   closeMenu();
 }));
+
+const unitTabs = [...document.querySelectorAll('[data-unit-tab]')];
+const selectUnit = (unit, moveFocus = false) => {
+  const selected = unitTabs.find(tab => tab.dataset.unitTab === unit);
+  if (!selected) return;
+  unitTabs.forEach(tab => {
+    const active = tab === selected;
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+    document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+  });
+  const panel = document.getElementById(selected.getAttribute('aria-controls'));
+  const map = panel.querySelector('iframe[data-src]');
+  if (map) { map.src = map.dataset.src; map.removeAttribute('data-src'); }
+  if (moveFocus) selected.focus();
+};
+unitTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectUnit(tab.dataset.unitTab));
+  tab.addEventListener('keydown', event => {
+    let next;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % unitTabs.length;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + unitTabs.length) % unitTabs.length;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = unitTabs.length - 1;
+    if (next !== undefined) { event.preventDefault(); selectUnit(unitTabs[next].dataset.unitTab, true); }
+  });
+});
+document.querySelectorAll('[data-select-unit]').forEach(link => link.addEventListener('click', () => selectUnit(link.dataset.selectUnit)));
